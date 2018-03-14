@@ -19,10 +19,14 @@ class Game
   end
 
   def guess_a_letter(letter)
+    return nil if @guessed_letters.include?(letter)
+    return nil if letter == " " 
     if @hidden_word.is_letter_correct?(letter)
-      return @guessed_letters << letter
+      @guessed_letters << letter
+      @guessed_letters = @guessed_letters.uniq
     else
       @guessed_letters << letter
+      @guessed_letters = @guessed_letters.uniq
       return @player.remove_life()
     end
   end

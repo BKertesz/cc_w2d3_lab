@@ -40,13 +40,14 @@ end
 
   def run_game_loop()
     until @game.is_won? || @game.is_lost?
+      clear_screen()
       puts "Lifes left:#{@game.player.lifes_left}"
-      puts "Guessed letters:#{@game.guessed_letters}"
+      puts "Tries:#{@game.guessed_letters}"
       puts "The word: #{@game.hidden_word.display}"
       guess_round()
     end
     puts "You won #{@game.player.name}!" if @game.is_won?
-    puts "You lost #{@game.player.name}, the word was #{@game.hidden_word.word}" if @game.is_lost?
+    puts "You lost, #{@game.player.name}. The word was:#{@game.hidden_word.word}" if @game.is_lost?
   end
 end
 
