@@ -27,16 +27,16 @@ class GameLoop
     @game = Game.new(@player,@hidden_word)
   end
 
-def guess_round()
-  puts ("Guess a letter:")
-  guess = gets.chomp
-  if guess.length > 1
-    puts "Needs to be one character!"
-    guess_round()
-  end
-  @game.guess_a_letter(guess)
+  def guess_round()
+    puts ("Guess a letter:")
+    guess = gets.chomp
+    if guess.length > 1
+      puts "Needs to be one character!"
+      guess_round()
+    end
+    @game.guess_a_letter(guess)
 
-end
+  end
 
   def run_game_loop()
     until @game.is_won? || @game.is_lost?
@@ -48,16 +48,37 @@ end
     end
     puts "You won #{@game.player.name}!" if @game.is_won?
     puts "You lost, #{@game.player.name}. The word was:#{@game.hidden_word.word}" if @game.is_lost?
+    start_new_round?()
   end
+
+  def setup_game_loop()
+    clear_screen()
+    setup_hidden_word()
+    setup_player()
+    setup_game()
+    run_game_loop()
+  end
+
+  def start_new_round?()
+    puts "Play again? [y/n]"
+    choice = gets.chomp.downcase
+    setup_game_loop() if choice == "y"
+    if choice =="n"
+      puts "Good bye!"
+    else
+      puts "Wrong input!"
+      start_new_round?()
+    end
+  end
+
+
+
 end
 
 window = GameLoop.new()
-window.clear_screen()
-window.setup_hidden_word()
-window.setup_player()
-window.setup_game()
-window.run_game_loop()
+window.setup_game_loop()
 
 
 
-  # EOF
+
+# EOF
