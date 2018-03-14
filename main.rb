@@ -18,7 +18,7 @@ class GameLoop
 
   def setup_hidden_word()
     puts "What should be the hidden word?"
-    word = gets.chomp
+    word = gets.chomp.downcase
     @hidden_word = Hiddenword.new(word)
     clear_screen()
   end
@@ -27,14 +27,23 @@ class GameLoop
     @game = Game.new(@player,@hidden_word)
   end
 
+def guess_round()
+  puts ("Guess a letter:")
+  guess = gets.chomp
+  if guess.length > 1
+    puts "Needs to be one character!"
+    guess_round()
+  end
+  @game.guess_a_letter(guess)
+
+end
+
   def run_game_loop()
     until @game.is_won? || @game.is_lost?
       puts "Lifes left:#{@game.player.lifes_left}"
       puts "Guessed letters:#{@game.guessed_letters}"
       puts "The word: #{@game.hidden_word.display}"
-      puts ("Guess a letter:")
-      guess = gets.chomp
-      @game.guess_a_letter(guess)
+      guess_round()
     end
     puts "You won #{@game.player.name}!" if @game.is_won?
     puts "You lost #{@game.player.name}, the word was #{@game.hidden_word.word}" if @game.is_lost?
@@ -43,8 +52,8 @@ end
 
 window = GameLoop.new()
 window.clear_screen()
-window.setup_player()
 window.setup_hidden_word()
+window.setup_player()
 window.setup_game()
 window.run_game_loop()
 

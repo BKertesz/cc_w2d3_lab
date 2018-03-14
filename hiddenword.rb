@@ -20,7 +20,9 @@ class Hiddenword
   def display()
     display_word = String.new()
     for letter in @word.split("")
-      if @correct_letters.include?(letter)
+      if letter == " "
+        display_word << " "
+      elsif @correct_letters.include?(letter)
         display_word << letter
       else
         display_word << "*"
