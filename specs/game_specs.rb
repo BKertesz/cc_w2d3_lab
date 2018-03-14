@@ -22,5 +22,10 @@ class GameTest < Minitest::Test
     assert_equal(0,@game.guessed_letters.length)
   end
 
+  def test_if_can_guess_a_letter
+    @game.guess_a_letter("a")
+    assert_equal(1,@game.guessed_letters.length)
+  end
+
 end
 # EOF
