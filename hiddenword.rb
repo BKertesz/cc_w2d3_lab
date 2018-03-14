@@ -1,4 +1,5 @@
 class Hiddenword
+  
   attr_reader :word, :correct_letters
 
   def initialize(word)
