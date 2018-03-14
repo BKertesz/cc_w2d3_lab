@@ -27,5 +27,23 @@ class GameTest < Minitest::Test
     assert_equal(1,@game.guessed_letters.length)
   end
 
+  def test_if_player_is_losing_lives
+    @game.guess_a_letter("x")
+    assert_equal(9,@game.player.lifes_left)
+  end
+
+  def test_game_is_won?
+    @game.guess_a_letter("a")
+    @game.guess_a_letter("p")
+    @game.guess_a_letter("l")
+    @game.guess_a_letter("e")
+    assert_equal(true,@game.is_won?)
+  end
+
+  def test_game_is_lost?
+    10.times{@game.player.remove_life}
+    assert_equal(true,@game.is_lost?)
+  end
+
 end
 # EOF

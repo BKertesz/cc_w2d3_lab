@@ -8,8 +8,9 @@ class Hiddenword
 
 
   def is_letter_correct?(a_character)
-    if @word.split("").include?(a_character)
-      @correct_letters << a_character
+    char = a_character.downcase
+    if @word.split("").include?(char)
+      @correct_letters << char
       return true
     end
     return false
